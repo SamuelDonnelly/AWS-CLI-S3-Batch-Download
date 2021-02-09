@@ -1,0 +1,61 @@
+---
+title: "CSV Download Instructions"
+author: "Samuel Donnelly"
+date: "2/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
+
+```{r, include=FALSE}
+library(knitr)
+```
+Link account: Note you can skip to step 2 "enter aws --version" if you already installed CLI
+```{r, eval=FALSE}
+1. Install CLI from: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
+2. Open command prompt and enter "aws --version"
+3. Type in "aws configure sso"
+4. SSO Start url: type in "https://ucf-researchit.awsapps.com/start"
+5. Region: type in "us-east-1"
+6. Account links to local device.
+7. Region: type in "us-east-1"
+8. CLI default options: Just click "enter" key
+9. CLI profile name: Make short name and type it in (e.g., varisam)
+```
+
+
+1. Create Folder to Download Data. I created a folder "awsdata" in my downloads
+2. Open the Command Prompt and enter "cd downloads" to set the directory to downloads, then enter "cd awsdata" to specify the folder you created. If you did this correctly, you should see "awsdata>" with the ">" coming after awsdata, as shown in the image below.
+```{r, echo=FALSE}
+include_graphics("C:/Users/donne/Downloads/step1.jpg")
+```
+
+3a. Lastly you need to enter the line of code below, but replace "varisam" with your own profile name. The "--exclude" and "--include" commands are filters so you only download .csv files.
+```{r, eval=FALSE}
+aws s3 sync s3://research-vari/pilot-1 . --profile varisam --exclude "*"  --include "*.csv"  
+```
+
+3b. If you want to exclude the demo files, then run the line below with the extra filter command.
+```{r, eval=FALSE}
+aws s3 sync s3://research-vari/pilot-1 . --profile varisam --exclude "*"  --include "*.csv" --exclude "*Demo.xml.csv"  
+```
+
+4. After you press "enter" and run this line of code, it should start downloading all csv files to that specified folder. 
+```{r, echo=FALSE}
+include_graphics("C:/Users/donne/Downloads/step2.jpg")
+```
+
+5. csv files are very small, and it should only take a few moments to download everything
+```{r, echo=FALSE}
+include_graphics("C:/Users/donne/Downloads/step3.jpg")
+```
+
+6. Below is a link to an AWS instruction page on how to use these filters which can be extended to filter by date, sona ID, session type, etc...
+```{r, eval=FALSE}
+https://docs.aws.amazon.com/cli/latest/reference/s3/#use-of-exclude-and-include-filters
+
+```
+
+
